@@ -805,17 +805,17 @@ export default async function ({ feature, console }) {
     const m = name.match(/%\{(.+)\}/);
     if (m) {
       const v = lookupMessage(m[1]);
-      if (v) return v;
+      if (v) return v.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
       const n = m[1].replace(/^(?:BKY_)?(?:CATEGORY_)?/i, "").replace(/_/g, " ");
-      return n.replace(/\b\w/g, (c) => c.toUpperCase());
+      return n.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
     }
 
     if (/bky|category/i.test(name)) {
       const suffix = name.split(/[ _]/).slice(-1)[0];
-      return (suffix || "").replace(/\b\w/g, (c) => c.toUpperCase());
+      return (suffix || "").toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
     }
 
-    return name.replace(/\b\w/g, (c) => c.toUpperCase());
+    return name.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
   /**
